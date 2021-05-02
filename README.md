@@ -42,6 +42,7 @@ func main() {
 		log.Fatal(err)
 	}
 	time.Sleep(5*time.Second)
-  client.Close()
+	
+  	client.Close()
 }
 ~~~
