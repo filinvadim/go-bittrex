@@ -4,7 +4,7 @@ Signal-R client for Bittrex echange API V3
 This version implement V3 Bittrex Signal-R API and the new HMAC authentification.
 
 ## Installation
-	go get github.com/filinvadim/go-bittrex
+	Just copy source code :)
 	
 ## Usage
 ~~~ go
