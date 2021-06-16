@@ -264,14 +264,16 @@ func (c *Client) CallHub(hub, method string, params ...interface{}) (json.RawMes
 
 	defer c.deleteResponseFuture(responseKey)
 
-	response, ok := <-responseChannel
-	if !ok {
+	after := time.After(5*time.Second)
+	select {
+	case <-after:
 		return nil, fmt.Errorf("Call to server returned no result")
+	case response := <-responseChannel:
+		if len(response.Error) > 0 {
+			return nil, fmt.Errorf("%s", response.Error)
+		}
+		return response.Result, nil
 	}
-	if len(response.Error) > 0 {
-		return nil, fmt.Errorf("%s", response.Error)
-	}
-	return response.Result, nil
 }
 
 func (c *Client) Connect(scheme, host string, hubs []string) error {
