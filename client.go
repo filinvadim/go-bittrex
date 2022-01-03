@@ -14,6 +14,8 @@ import (
 	"github.com/gorilla/websocket"
 )
 
+// this code belongs to https://github.com/zoh/signalr_bittrex
+
 type negotiationResponse struct {
 	Url                     string
 	ConnectionToken         string
@@ -264,7 +266,7 @@ func (c *Client) CallHub(hub, method string, params ...interface{}) (json.RawMes
 
 	defer c.deleteResponseFuture(responseKey)
 
-	after := time.After(5*time.Second)
+	after := time.After(5 * time.Second)
 	select {
 	case <-after:
 		return nil, fmt.Errorf("Call to server returned no result")
